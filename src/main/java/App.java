@@ -1,6 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -12,21 +10,27 @@ public class App {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize(); // maximize window to prevent some issu
-        driver.get("file:///C:/Users/Tom/Documents/GitHub/JavaSelenium/tablePage.html");
+        driver.get("https://www.udemy.com/course/core-java-programming-language-tutorial/");
 
-        //System.out.println(driver.findElement(By.xpath("/html/body/table/tbody[1]/tr[2]/td[1]")).getText());
-        //System.out.println(driver.findElement(By.xpath("/html/body/table/tbody[1]/tr[1]/th[2]")).getText());
+        WebElement signUpButton = driver.findElement(By.cssSelector("#udemy > div.main-content-wrapper > div.ud-app-loader.ud-component--header-v6--header.udlite-header.ud-app-loaded > div.udlite-text-sm.header--header--3sK1h.header--flex-middle--2Xqjv > div:nth-child(8) > a > span"));
+        //clicking with JavascriptExercutor
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", signUpButton);
 
-        List<WebElement> listOfWebElements = driver.findElements(By.xpath("/html/body/table/tbody[1]/tr"));
-        List<WebElement> listOfWebElements2 = driver.findElements(By.xpath("/html/body/table/tbody[1]/tr[1]"));
-        for(WebElement element : listOfWebElements){
-            System.out.println(element.getText());
-        }
+        //setting up timeouts
+        ((JavascriptExecutor) driver).executeAsyncScript("window.setTimeout(arguments[arguments.length-1], 3000);");
 
-        for(WebElement element : listOfWebElements2){
-            System.out.println(element.getText());
-        }
+        //changing the webpage
+        ((JavascriptExecutor) driver).executeScript("window.location = 'https://wikipedia.com'");
 
-        driver.close();
+        //scroll the webpage
+        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1000)");
+
+        //driver.close();
+
+
+        //JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        //javascriptExecutor.executeScript("arguments[0],click()", signUpButton);
+
+
     }
 }
