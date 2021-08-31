@@ -1,5 +1,9 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -10,21 +14,52 @@ public class App {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize(); // maximize window to prevent some issu
-        driver.get("https://www.udemy.com/course/core-java-programming-language-tutorial/");
+        driver.get("file:///C:/Users/Tom/Documents/GitHub/JavaSelenium/alerts.html");
 
-        WebElement signUpButton = driver.findElement(By.cssSelector("#udemy > div.main-content-wrapper > div.ud-app-loader.ud-component--header-v6--header.udlite-header.ud-app-loaded > div.udlite-text-sm.header--header--3sK1h.header--flex-middle--2Xqjv > div:nth-child(8) > a > span"));
-        //clicking with JavascriptExercutor
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", signUpButton);
+        WebElement basicAlertButton = driver.findElement(By.cssSelector("body > button:nth-child(2)"));
+        WebElement confirmationAlertButton = driver.findElement(By.cssSelector("body > button:nth-child(5)"));
+        WebElement promptAlertButton = driver.findElement(By.cssSelector("body > button:nth-child(8)"));
 
-        //setting up timeouts
-        ((JavascriptExecutor) driver).executeAsyncScript("window.setTimeout(arguments[arguments.length-1], 3000);");
+        basicAlertButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert basicAlert = driver.switchTo().alert();
 
-        //changing the webpage
-        ((JavascriptExecutor) driver).executeScript("window.location = 'https://wikipedia.com'");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        //scroll the webpage
-        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1000)");
+        basicAlert.accept();
 
+
+
+        confirmationAlertButton.click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert confirmationAlert = driver.switchTo().alert();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        confirmationAlert.dismiss();
+
+        promptAlertButton.click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert promptAlert = driver.switchTo().alert();
+        System.out.println(promptAlert.getText());
+        promptAlert.sendKeys("IKuzma");
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        promptAlert.accept();
         //driver.close();
 
 
