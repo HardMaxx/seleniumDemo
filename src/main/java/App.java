@@ -10,24 +10,24 @@ public class App {
         WebDriver driver = new ChromeDriver();
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize(); // maximize window to prevent some issu
+
         driver.get("https://www.wikipedia.org/");
 
-        WebElement titleOfWebPage = driver.findElement(By.cssSelector("#www-wikipedia-org > div.central-textlogo > h1 > span"));
+        WebElement englishButton = driver.findElement(By.id("js-link-box-en"));
 
-        String titleText = titleOfWebPage.getText();
+        englishButton.click();
 
-        String expectedText = "Wikipedia";
+        String expectedTitle ="Welcome to Wikipedia,";
+        WebElement titleOfEnglishPage = driver.findElement(By.id("mp-welcome"));
 
-        if(titleText.equals(expectedText)){
-            System.out.println("Test has passed!");
+        if (titleOfEnglishPage.getText().equals(expectedTitle)){
+            System.out.println("Test has passed! Page is the English one");
         }
-        else {
-            System.out.println("Test did not pass!");
-            driver.close();
-            throw new Exception();
+        else
+        {
+            System.out.println("Test has failed Click() was not successful");
         }
-
-
         driver.close();
     }
 }
