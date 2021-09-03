@@ -39,6 +39,22 @@ public class HomePage {
     @FindBy(css = "#homefeatured > li:nth-child(2) > div > div.left-block > div > a.product_img_link > img")
     private WebElement mouseOnSecondObject;
 
+    @FindBy(css = "#header > div.nav > div > div > nav > div.header_user_info > a")
+    private WebElement signInButton;
+
+    @FindBy(css = "#header > div.nav > div > div > nav > div:nth-child(1) > a > span")
+    private WebElement username;
+
+    public void clickSignIn(){
+        WebDriverWait wait = new WebDriverWait(driver, Constants.TIMEOUT);
+        wait.until((ExpectedConditions.elementToBeClickable(signInButton)));
+        signInButton.click();
+    }
+
+    public String getUsername(){
+        return username.getText();
+    }
+
     public void addFirstElementToCart(){
         Actions hover = new Actions(driver);
         hover.moveToElement(mouseOnFirstObject).build().perform();
@@ -58,7 +74,7 @@ public class HomePage {
     public void addSecondElementToCart(){
         Actions hover = new Actions(driver);
         hover.moveToElement(mouseOnSecondObject).build().perform();
-        
+
         addToCartSecond.click();
         WebDriverWait wait = new WebDriverWait(driver, Constants.TIMEOUT);
         wait.until((ExpectedConditions.elementToBeClickable(processedToCheckoutButton)));
