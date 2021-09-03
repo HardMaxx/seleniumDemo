@@ -1,8 +1,6 @@
 import drivers.DriverSingleton;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import pages.CheckoutPage;
 import pages.HomePage;
@@ -12,6 +10,7 @@ import utils.FrameworkProperties;
 
 import static org.junit.Assert.assertEquals;
 
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Tests {
 
     static FrameworkProperties frameworkProperties;
@@ -44,6 +43,23 @@ public class Tests {
         homePage.addFirstElementToCart();
         homePage.addSecondElementToCart();
         assertEquals(Constants.CART_QUANTITY_TEST, checkoutPage.getSummaryProductsString());
+    }
+
+    @Test
+    public void testingTheFullBuyingProcess(){
+        driver.get(Constants.URL);
+        homePage.addFirstElementToCart();
+        homePage.addSecondElementToCart();
+
+        checkoutPage.goToCheckout();
+        checkoutPage.confirmAddress();
+        checkoutPage.confirmShipping();
+        checkoutPage.payByBankWire();
+        checkoutPage.confirmFinalOrder();
+        assertEquals(true ,checkoutPage.checkFinalStatus());{
+            System.out.println("Test case completed!");
+        }
+
     }
 
     @AfterClass
