@@ -38,6 +38,14 @@ public class Tests {
         assertEquals(frameworkProperties.getProperty(Constants.USERNAME),homePage.getUsername());
     }
 
+    @Test
+    public void testingAddingThingsToCart(){
+        driver.get(Constants.URL);
+        homePage.addFirstElementToCart();
+        homePage.addSecondElementToCart();
+        assertEquals(Constants.CART_QUANTITY_TEST, checkoutPage.getSummaryProductsString());
+    }
+
     @AfterClass
     public static void closeObjects(){
         driver.close();
