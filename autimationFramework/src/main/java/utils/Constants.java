@@ -8,5 +8,8 @@ public class Constants {
     public static final String PHANTOMJS = "drivers.strategies.PhantomJs";
     public static final int TIMEOUT =15;
     public static final String CART_QUANTITY="1 Product";
+    public static final String COMPLETE_ORDER="Your order on My Store is complete.";
+    public static final String EMAIL="email";
+    public static final String PASSWORD="password";
 
 }
