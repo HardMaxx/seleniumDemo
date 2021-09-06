@@ -9,6 +9,7 @@ import utils.Constants;
 import utils.FrameworkProperties;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Tests {
@@ -56,7 +57,7 @@ public class Tests {
         checkoutPage.confirmShipping();
         checkoutPage.payByBankWire();
         checkoutPage.confirmFinalOrder();
-        assertEquals(true ,checkoutPage.checkFinalStatus());{
+        assertTrue(checkoutPage.checkFinalStatus());{
             System.out.println("Test case completed!");
         }
 
